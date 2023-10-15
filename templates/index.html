@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Transaction Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .red-text {
+            color: #FF0000;
+        }
+
+        .green-text {
+            color: #008000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bank Transaction Prediction</h1>
+        <form action="/predict" method="post">
+            <div>
+                <label for="sourceid">Source ID:</label>
+                <input name="sourceid" 
+                  type="number"
+                       id="sourceid"
+                  min="1"
+                  step="1"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  title="Numbers only" required>
+                
+            </div>
+            
+            <div>
+                <label for="destinationid">Destination ID:</label>
+                <input name="destinationid" 
+                  type="number"
+                       id="destinationid"
+                  min="1"
+                  step="1"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  title="Numbers only" required>
+                
+            </div>
+            
+            <div>
+                <label for="amountofmoney">Transaction Money:</label>
+                <input type="number" id="amountofmoney" name="amountofmoney" required>
+            </div>
+            
+            <div>
+                <label for="typeofaction">Type of Transaction:</label>
+                <select id="typeofaction" name="typeofaction" required>
+                    <option value="cash-in">Cash-in</option>
+                    <option value="transfer">Transfer</option>
+                </select>
+            </div>
+            
+            <input type="submit" value="Predict">
+        </form>
+        
+        <h2 id="prediction-text">{{prediction_text}}</h2>
+    </div>
+
+    <script>
+        // Check prediction text and apply the appropriate class
+        window.onload = function () {
+            var predictionElement = document.getElementById("prediction-text");
+            var text = predictionElement.textContent || predictionElement.innerText; 
+
+            if (text.trim() === "Fraud") {
+                predictionElement.className = "red-text";
+            } else if (text.trim() === "Not Fraud") {
+                predictionElement.className = "green-text";
+            }
+        }
+    </script>
+
+</body>
+<body>
+    <div class="container">
+        <h1>Feed Back</h1>
+        <form action="/feedback" method="post">
+        
+            <div>
+                <label for="sourceid">Source ID:</label>
+                <input name="sourceid" 
+                  type="number"
+                       id="sourceid"
+                  min="1"
+                  step="1"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  title="Numbers only" required>
+                
+            </div>
+            <div>
+                <label for="destinationid">Destination ID:</label>
+                <input name="destinationid" 
+                  type="number"
+                       id="destinationid"
+                  min="1"
+                  step="1"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  title="Numbers only" required>
+                
+            </div>
+            
+            <div>
+                <label for="Feedback">Feedback:</label>
+                <select id="typeofaction" name="typeofaction" required>
+                    <option value="Not-Fraud">Not-Fraud</option>
+                    <option value="Fraud">Fraud</option>
+                </select>
+            </div>
+            
+            
+            <input type="submit" value="feedback">
+        </form>
+        </body>
+</html>
